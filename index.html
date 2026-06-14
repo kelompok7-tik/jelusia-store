@@ -444,13 +444,18 @@
 
         </div>
     </div>
-
-    <div class="cart-modal" id="cartModal">
+ <div class="cart-modal" id="cartModal">
         <div class="cart-header">
             <h3>Keranjang Anda</h3>
             <span class="close-cart" onclick="toggleCart()">✕</span>
         </div>
         <div class="cart-items" id="cartItems"></div>
+        
+        <div style="margin-top: 15px; padding-top: 10px; border-top: 2px dashed #eee;">
+            <h4 style="font-size: 12px; color: #444; margin-bottom: 8px; text-transform: uppercase;">Data Pengiriman</h4>
+            <input type="text" id="buyer-name" placeholder="Nama Lengkap Pemesan" style="width: 100%; padding: 8px 12px; margin-bottom: 8px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; outline: none;">
+            <textarea id="buyer-address" placeholder="Alamat Lengkap (Jalan, No. Rumah, RT/RW, Kecamatan, Kota/Kabupaten)" style="width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; height: 60px; resize: none; outline: none;"></textarea>
+        </div>
         
         <div class="shipping-container">
             <h4>Ekspedisi Pengiriman</h4>
@@ -487,6 +492,8 @@
         <div class="cart-total"><span>Total:</span><span id="cartTotal">Rp 0</span></div>
         <button class="btn-checkout" onclick="checkoutWhatsApp()">Pesan via WhatsApp 💬</button>
     </div>
+
+    
 
     <div class="chat-widget-container">
         <button class="chat-launcher-btn" onclick="toggleChatWindow()">💬</button>
@@ -559,17 +566,37 @@
             document.getElementById('cartTotal').innerText = 'Rp ' + (total + shipping).toLocaleString('id-ID');
         }
 
-        function checkoutWhatsApp() {
+       function checkoutWhatsApp() {
             if(cart.length === 0) return alert('Keranjang kosong!');
+            
+            // Ambil data input nama dan alamat
+            const buyerName = document.getElementById('buyer-name').value.trim();
+            const buyerAddress = document.getElementById('buyer-address').value.trim();
+            
+            // Validasi wajib isi
+            if(!buyerName) return alert('Silakan isi Nama Lengkap terlebih dahulu!');
+            if(!buyerAddress) return alert('Silakan isi Alamat Lengkap pengiriman terlebih dahulu!');
+
             const shipping = document.querySelector('input[name="shipping_method"]:checked').value;
+            const shippingCost = parseInt(document.querySelector('input[name="shipping_method"]:checked').getAttribute('data-cost'));
             const payment = document.querySelector('input[name="payment_method"]:checked').value;
-            let msg = "Halo Jelusia Store, saya mau pesan:\n\n";
+            
+            let msg = `*FORMAT ORDER JELUSIA STORE*\n\n`;
+            msg += `• *Nama Pemesan:* ${buyerName}\n`;
+            msg += `• *Alamat Tujuan:* ${buyerAddress}\n\n`;
+            msg += `*Daftar Belanjaan:*\n`;
+            
             let total = 0;
             cart.forEach((item, i) => {
-                let sub = item.price * item.qty; total += sub;
+                let sub = item.price * item.qty; 
+                total += sub;
                 msg += `${i+1}. ${item.title} (${item.size}/${item.color}) x${item.qty} = Rp ${sub.toLocaleString('id-ID')}\n`;
             });
-            msg += `\nKurir: ${shipping}\nBayar: ${payment}\n*Total Akhir: Rp ${(total + (cart.length > 0 ? 12000 : 0)).toLocaleString('id-ID')}*`;
+            
+            msg += `\n• *Kurir:* ${shipping} (Rp ${shippingCost.toLocaleString('id-ID')})\n`;
+            msg += `• *Metode Bayar:* ${payment}\n`;
+            msg += `• *Total Akhir:* **Rp ${(total + shippingCost).toLocaleString('id-ID')}**`;
+            
             window.open(`https://api.whatsapp.com/send?phone=6283891287369&text=${encodeURIComponent(msg)}`, '_blank');
         }
 
