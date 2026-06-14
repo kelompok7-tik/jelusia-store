@@ -264,7 +264,7 @@
             position: fixed;
             top: 0;
             right: -100%;
-            width: 380px;
+            width: 400px;
             height: 100%;
             background: white;
             box-shadow: -5px 0 15px rgba(0,0,0,0.1);
@@ -279,7 +279,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-bottom: 2px solid #eee;
             padding-bottom: 10px;
         }
@@ -333,8 +333,59 @@
         }
         .btn-delete:hover { transform: scale(1.1); }
 
+        /* --- Slicing Desain Pilihan Metode Pembayaran --- */
+        .payment-container {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #eee;
+            text-align: left;
+        }
+        .payment-container h4 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .payment-option {
+            display: block;
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+        .payment-option input[type="radio"] {
+            display: none;
+        }
+        .payment-box {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        .payment-box:hover {
+            border-color: #bbb;
+            background-color: #fafafa;
+        }
+        .payment-box .icon {
+            font-size: 1.2rem;
+            margin-right: 12px;
+        }
+        .payment-details strong {
+            display: block;
+            font-size: 13px;
+            color: #222;
+        }
+        .payment-details p {
+            margin: 2px 0 0 0;
+            font-size: 11px;
+            color: #666;
+        }
+        .payment-option input[type="radio"]:checked + .payment-box {
+            border-color: #ff4d94;
+            background-color: #fff0f5;
+        }
+
         .cart-total {
-            margin-top: 20px;
+            margin-top: 15px;
             font-size: 18px;
             font-weight: bold;
             display: flex;
@@ -640,7 +691,7 @@
             </div>
 
             <div class="product-card">
-                <img src="gamis.jpeg" alt="Gamis" class="product-img">
+                <img src="GAMIS.JPEG" alt="Gamis" class="product-img">
                 <div class="product-info">
                     <div class="product-title">Gamis Modern Elegant</div>
                     <div class="product-price">Rp 185.000</div>
@@ -702,7 +753,7 @@
                     <div class="product-options">
                         <div>
                             <label>Ukuran:</label>
-                            <select id="size-5">
+                            <select id="size-7">
                                 <option value="Panjang">Panjang</option>
                                 <option value="Pendek">Pendek</option>
                             </select>
@@ -769,7 +820,7 @@
                     <div class="product-options">
                         <div>
                             <label>Ukuran:</label>
-                            <select id="size-5">
+                            <select id="size-8">
                                 <option value="32">32</option>
                                 <option value="33">33</option>
                                 <option value="34">34</option>
@@ -803,7 +854,7 @@
                     <div class="product-options">
                         <div>
                             <label>Ukuran:</label>
-                            <select id="size-5">
+                            <select id="size-7">
                                 <option value="Bulat">Bulat</option>
                                 <option value="Kotak">Kotak</option>
                             </select>
@@ -830,7 +881,7 @@
                     <div class="product-options">
                         <div>
                             <label>Ukuran:</label>
-                            <select id="size-5">
+                            <select id="size-7">
                                 <option value="Bulat">Bulat</option>
                                 <option value="Kotak">Kotak</option>
                             </select>
@@ -857,7 +908,7 @@
                     <div class="product-options">
                         <div>
                             <label>Variasi:</label>
-                            <select id="size-5">
+                            <select id="size-7">
                                 <option value="Bunga">Bunga</option>
                             </select>
                         </div>
@@ -871,7 +922,7 @@
                             </select>
                         </div>
                     </div>
-                    <button class="btn-buy" onclick="addToCart('Jam tangan', 60000, 'size-7', 'color-7')">Tambah Ke Keranjang</button>
+                    <button class="btn-buy" onclick="addToCart('Bros kerudung', 30000, 'size-7', 'color-7')">Tambah Ke Keranjang</button>
                 </div>
             </div>
 
@@ -884,7 +935,7 @@
                     <div class="product-options">
                         <div>
                             <label>Ukuran:</label>
-                            <select id="size-5">
+                            <select id="size-7">
                                 <option value="S-M">S-M</option>
                                 <option value="L-XL">L-XL</option>
                             </select>
@@ -942,7 +993,46 @@
             <h3>Keranjang Anda</h3>
             <span class="close-cart" onclick="toggleCart()">✕</span>
         </div>
+        
         <div class="cart-items" id="cartItems"></div>
+        
+        <div class="payment-container">
+            <h4>Metode Pembayaran</h4>
+            
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="Cash on Delivery (COD)" checked>
+                <div class="payment-box">
+                    <span class="icon">💵</span>
+                    <div class="payment-details">
+                        <strong>Cash on Delivery (COD)</strong>
+                        <p>Bayar tunai langsung saat paket tiba.</p>
+                    </div>
+                </div>
+            </label>
+
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="QRIS (E-Wallet)">
+                <div class="payment-box">
+                    <span class="icon">📱</span>
+                    <div class="payment-details">
+                        <strong>QRIS (OVO, GoPay, Dana, LinkAja)</strong>
+                        <p>Scan barcode resmi toko setelah order.</p>
+                    </div>
+                </div>
+            </label>
+
+            <label class="payment-option">
+                <input type="radio" name="payment_method" value="Transfer Bank BCA">
+                <div class="payment-box">
+                    <span class="icon">🏦</span>
+                    <div class="payment-details">
+                        <strong>Transfer Bank BCA</strong>
+                        <p>No. Rek: 123-4567-890 a/n Kelompok 7 TIK</p>
+                    </div>
+                </div>
+            </label>
+        </div>
+
         <div class="cart-total">
             <span>Total Keseluruhan:</span>
             <span id="cartTotal">Rp 0</span>
@@ -1137,9 +1227,55 @@
                 return;
             }
 
+            // Membaca metode pembayaran yang dipilih oleh user
+            const paymentSelected = document.querySelector('input[name="payment_method"]:checked').value;
+
             const noWaPemesanan = "6283891287369";
             let teksPesan = "Halo Jelusia Store, Saya ingin memesan barang-barang berikut:\n\n";
             let totalHarga = 0;
+
+            cart.forEach((item, index) => {
+                const subTotalItem = item.price * item.qty;
+                totalHarga += subTotalItem;
+                teksPesan += `${index + 1}. *${item.title}*\n`;
+                teksPesan += `   Ukuran: ${item.size}, Warna: ${item.color}\n`;
+                teksPesan += `   Jumlah: ${item.qty} x Rp ${item.price.toLocaleString('id-ID')} = Rp ${subTotalItem.toLocaleString('id-ID')}\n\n`;
+            });
+
+            teksPesan += `*Total Keseluruhan: Rp ${totalHarga.toLocaleString('id-ID')}*\n`;
+            teksPesan += `*Metode Pembayaran:* ${paymentSelected}\n\n`;
+            teksPesan += "Mohon diproses pesanan saya ya min. Terima kasih!";
+
+            // Mengarahkan ke API Link WhatsApp resmi
+            const linkWa = `https://api.whatsapp.com/send?phone=${noWaPemesanan}&text=${encodeURIComponent(teksPesan)}`;
+            window.open(linkWa, '_blank');
+        }
+
+        // Fungsi Pengajuan Form Komplain & Pengembalian Kirim ke Nomor WA CS (6281385177556)
+        function submitComplaint(event) {
+            event.preventDefault(); // Menahan refresh page bawaan form
+
+            const noWaComplain = "6281385177556";
+            const nama = document.getElementById('comp-name').value;
+            const invoice = document.getElementById('comp-invoice').value;
+            const tipe = document.getElementById('comp-type').value;
+            const pesanKeluhan = document.getElementById('comp-message').value;
+
+            // Ambil rating jika diisi customer
+            const ratingSelected = document.querySelector('input[name="star"]:checked');
+            const rating = ratingSelected ? ratingSelected.value + " Bintang" : "Tidak memberikan rating";
+
+            let teksKomplain = `*FORM PENGAJUAN KOMPLAIN & RETURN - JELUSIA STORE*\n\n`;
+            teksKomplain += `• *Nama Lengkap:* ${nama}\n`;
+            teksKomplain += `• *No. Invoice:* ${invoice}\n`;
+            teksKomplain += `• *Jenis Pengajuan:* ${tipe}\n`;
+            teksKomplain += `• *Detail Keluhan:* ${pesanKeluhan}\n`;
+            teksKomplain += `• *Penilaian Toko:* ${rating}\n\n`;
+            teksKomplain += `_Catatan: Bukti foto/video fisik barang dikirim secara manual setelah pesan ini terkirim._`;
+
+            const linkWaComplain = `https://api.whatsapp.com/send?phone=${noWaComplain}&text=${encodeURIComponent(teksKomplain)}`;
+            window.open(linkWaComplain, '_blank');
+        }
     </script>
 </body>
 </html>
